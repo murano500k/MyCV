@@ -1,0 +1,74 @@
+{
+  "common" : {
+    "sections" : [ {
+      "description" : "Android developer's profile",
+      "title" : "Artem Radchenko"
+    }, {
+      "description" : "<b> Programming languages </b> <br/> Java, bash, Python, C++(familiar), Kotlin(familiar) <br/> <br/> <b> Integration </b> <br/> Gradle, Git, Gerrit, Jenkins, GitHub, Repo, Google Play <br/><br/> <b> Third-party android frameworks </b><br/> RxJava2, Retrofit2,  Picasso, EventBus, Gson, butterknife, leakcanary, Mapbox, ExoPlayer, aacdecoder-android, aacplayer-android, OkHttp, jsoup, simplexml, strongswan, VK, FB, Twitter <br /> <br/> <b> Google APIs </b> <br/> Awareness, Geofence, Maps, Location, Android things, Firebase (Auth, Cloud-messaging, Analytics, Database) <br /> <br/> <b> Android platform components </b> <br/> adb, Android SDK, aosp, support-lib, SQLite, Content provider, RuntimePermission, MediaPlayer, MediaSession <br />     <br/> <b> Android testing tools </b> <br/> Instrumentation, Espresso​, UiAutomator, junit​, platform testing (cts, vts, ltp, khronos) <br /> <br/> <b> General </ b> <br> cmake, expect(scripting language), Selenium, apache bench, jmeter",
+      "title" : "Used technologies"
+    }, {
+      "description" : "Advanced (C1)",
+      "title" : "English level"
+    }, {
+      "description" : "2+ years experience of developing Android applications <br/> <br/> <b>GlobalLogic - Android Automaiton</b> <br/><i>March 2016 - Present </i><br/><b>Project info:</b><br/> Embedded, automotive, porting android M, N, Ncar, O <br/><b>Tasks:</b><br/> Android automated test development: media, connectivity, graphics, filesystem, memory, system performance. Git, gerrit, jenkins integration, platform building <br/><b>Tools:</b><br/> adb shell, bash scripts, junit, instrumentation, uiautomator, Espresso, cts, vts, busybox, ltp <br/><br/><br/><b>GlobalLogic - Junior QA</b><br/><i>March 2015 - February 2016 </i><br/><b>Project info:</b><br/> Cross-platform VPN service<br/><b>Tasks:</b><br/> Vpn client test automation, development and bug fixing, auto-testing compatibility, ui, REST API, auto-reconnect. vpn server performance test development, mongodb scripts, administration, monitoring <br/>",
+      "title" : "Work experience"
+    }, {
+      "description" : "<b>University</b><br/>National Technical University of Ukraine <br/>Igor Sikorsky Kyiv Polytechnic Institute<br/><br/><b>Period</b><br/>September 2010 - February 2016<br/><br/><b>Faculty</b><br/>Educational Scientific Institute of Telecommunication Systems<br/><br/><b>Degree</b><br/>Specialist, full-time",
+      "title" : "Education"
+    } ]
+  },
+  "contacts" : {
+    "cv_url" : "https://drive.google.com/open?id=1YbIsVqYzZY3SrqDTKemSZuzEgxMwWvGcLDYzx1eU8uk",
+    "email" : "murano500k@gmail.com",
+    "github" : "https://github.com/murano500k",
+    "name" : "Artem Radchenko",
+    "phone" : "+38 066 1991070",
+    "pic_url" : "http://kpi.ua/files/images-story/olimp.jpg",
+    "profession" : "Android applications developer"
+  },
+  "projects" : [ {
+    "cover_pic" : "https://raw.githubusercontent.com/murano500k/Internet-Radio-Player-Android/master/app/src/main/banner-web.png",
+    "description" : "Tired of choosing music suitable for your mood? All radio stations have too wide repertory, contain ads or broadcast in low quality? There is a solution - Online Radio, android application for playing online audio streams. Offers hundreds of stations in high quality. Radio stations are separated by genre, including different genres of electronic rock, pop, and classical music. If your connection is unstable, its not a problem! You don't need to take your phone from your pocket to press play button, Online Radio will resume automatically when internet become available, is it was interrupted.",
+    "duties" : "Developed and published entire application from scratch",
+    "git_hub" : "https://github.com/murano500k/Internet-Radio-Player-Android",
+    "name" : "Internet Radio",
+    "platform" : "android",
+    "stack" : "Java, Android SDK, MediaSession API, ExoPlayer, active-android, picasso, leakcanary, android-support-library, Gson, Retrofit, RxJava ",
+    "store_url" : "https://play.google.com/store/apps/details?id=com.stc.radio.player",
+    "vendor" : "Me",
+    "web_pic" : "https://raw.githubusercontent.com/murano500k/Internet-Radio-Player-Android/master/app/src/main/ic_launcher-web.png"
+  }, {
+    "cover_pic" : "https://raw.githubusercontent.com/murano500k/Internet-Radio-Player-Android/master/app/src/main/banner-web.png",
+    "description" : "Game of life. Simpliest evolution model",
+    "duties" : "Developed and published entire application from scratch",
+    "git_hub" : "https://github.com/murano500k/Life",
+    "name" : "Life",
+    "platform" : "android",
+    "stack" : "Java, Android SDK, android-support-library, RxJava",
+    "store_url" : "https://play.google.com/store/apps/details?id=com.stc.life",
+    "vendor" : "Me",
+    "web_pic" : "https://github.com/murano500k/Life/raw/master/app/src/main/ic_launcher-web.png"
+  }, {
+    "cover_pic" : "https://raw.githubusercontent.com/murano500k/Internet-Radio-Player-Android/master/app/src/main/banner-web.png",
+    "description" : "Always on digital clock app with custom fonts, colors, speaking time and other useful features.",
+    "duties" : "Developed and published entire application from scratch",
+    "git_hub" : "https://github.com/murano500k/MyFullscreenClock",
+    "name" : "Fullscreen Clock",
+    "platform" : "android",
+    "stack" : "Java, Android SDK, android-support-library, RxJava",
+    "store_url" : "https://play.google.com/store/apps/details?id=com.stc.fullscreen.clock",
+    "vendor" : "Me",
+    "web_pic" : "https://github.com/murano500k/MyFullscreenClock/raw/master/app/src/main/ic_launcher-web.png"
+  }, {
+    "cover_pic" : "https://raw.githubusercontent.com/murano500k/Internet-Radio-Player-Android/master/app/src/main/banner-web.png",
+    "description" : "Simple OpenWeatherMap client. Shows selected city weather and location on map. User can add weather widget to home screen",
+    "duties" : "Developed and published entire application from scratch",
+    "git_hub" : "https://github.com/murano500k/WeatherApp",
+    "name" : "WeatherApp",
+    "platform" : "android",
+    "stack" : "Java, Android SDK, android-support-library, RxJava",
+    "store_url" : " ",
+    "vendor" : "Me",
+    "web_pic" : "https://raw.githubusercontent.com/murano500k/WeatherApp/master/app/src/main/ic_launcher-web.png"
+  }]
+}
