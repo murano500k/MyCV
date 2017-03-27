@@ -10,11 +10,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.Pair;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -22,16 +20,13 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kelvinapps.rxfirebase.RxFirebaseDatabase;
-import com.stc.cv.LocaleService;
 import com.stc.cv.R;
 import com.stc.cv.databinding.FragmentProjectsBinding;
 import com.stc.cv.model.Project;
 import com.stc.cv.model.ProjectsResponse;
-import com.stc.cv.ui.IMainView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
@@ -45,7 +40,6 @@ public class ProjectsFragment extends Fragment implements ProjectsAdapter.OnProj
     private boolean loaded;
     private Filter filter;
 
-    private IMainView mainView;
     private List<Project> cachedData;
     private Subscription subscription;
 
@@ -56,15 +50,11 @@ public class ProjectsFragment extends Fragment implements ProjectsAdapter.OnProj
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof IMainView) {
-            mainView = (IMainView) context;
-        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mainView = null;
     }
 
     @Override
@@ -90,40 +80,11 @@ public class ProjectsFragment extends Fragment implements ProjectsAdapter.OnProj
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        binding.projects.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        binding.projects.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.projects.setAdapter(adapter);
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.fragment_projects, menu);
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_all:
-                item.setChecked(true);
-
-                filter = Filter.ALL;
-                filterData();
-                return true;
-
-            case R.id.action_android:
-                item.setChecked(true);
-
-                filter = Filter.ANDROID;
-                filterData();
-                return true;
-            case R.id.action_ios:
-                item.setChecked(true);
-
-                filter = Filter.IOS;
-                filterData();
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
 
     @Override
     public void onStart() {
@@ -133,23 +94,12 @@ public class ProjectsFragment extends Fragment implements ProjectsAdapter.OnProj
                 .observeValueEvent(FirebaseDatabase.getInstance().getReference(), ProjectsResponse.class)
                 .map(projectsResponse -> {
 
-                    Map<String, String> strings = projectsResponse.resources.get(
-                            LocaleService.getInstance().getLocale(getContext()));
-
-                    for (Project project : projectsResponse.projects) {
-                        project.name = strings.get(project.nameKey);
-                        project.description = strings.get(project.descriptionKey);
-                        project.duties = strings.get(project.dutiesKey);
-                    }
-
                     return projectsResponse.projects;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(projects -> {
-                    if (mainView != null) {
-                        mainView.hideProgress();
-                    }
+
 
                     if (!loaded) {
 
@@ -160,23 +110,19 @@ public class ProjectsFragment extends Fragment implements ProjectsAdapter.OnProj
                     }
 
                 }, throwable -> {
-                    if (mainView != null) {
-                        mainView.hideProgress();
-                    }
+
                     FirebaseCrash.report(throwable);
+	                Log.e(TAG, "onStart: ", throwable);
+
                 });
 
-        if (mainView != null) {
-            mainView.showProgress();
-        }
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        if (mainView != null) {
-            mainView.hideProgress();
-        }
+
         if (subscription != null && !subscription.isUnsubscribed()) {
             subscription.unsubscribe();
         }
@@ -195,12 +141,12 @@ public class ProjectsFragment extends Fragment implements ProjectsAdapter.OnProj
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             transitionView.setTransitionName(ProjectDetailsActivity.ICON_TRANSITION);
-            transitionView2.setTransitionName(ProjectDetailsActivity.PLATFORM_TRANSITION);
+            //transitionView2.setTransitionName(ProjectDetailsActivity.PLATFORM_TRANSITION);
 
             Pair<View, String> pair1 = Pair.create(transitionView, transitionView.getTransitionName());
-            Pair<View, String> pair2 = Pair.create(transitionView2, transitionView2.getTransitionName());
+            //Pair<View, String> pair2 = Pair.create(transitionView2, transitionView2.getTransitionName());
             ActivityOptionsCompat options = ActivityOptionsCompat.
-                    makeSceneTransitionAnimation(getActivity(), pair1, pair2);
+                    makeSceneTransitionAnimation(getActivity(), pair1);
             getContext().startActivity(intent, options.toBundle());
         } else {
             getContext().startActivity(intent);

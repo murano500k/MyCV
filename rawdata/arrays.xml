@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="skills_general_labels">
+        <item>English</item>
+        <item>General</item>
+        <item>Frameworks</item>
+    </array>
+    <array name="skills_general_values">
+        <item>Can read, write, speak freely</item>
+        <item>Programming related skills</item>
+        <item>Android libraries and frameworks</item>
+    </array>
+
+    <array name="skills_frameworks_values">
+        <item><bold>sdk, support-lib</bold>, Android things</item>
+        <item><bold>Rxadb, Instrumentation, Espresso​, UiAutomator, junit​, platform testing (cts, vts, ltp, khronos)</bold></item>
+        <item>ExoPlayer, aacdecoder-android, aacplayer-android, Android MediaPlayer, MediaSession API</item>
+        <item><bold>Retrofit2, gson, picasso</bold>, OkHttp, jsoup, simplexml, strongswan</item>
+        <item>Google, Mapbox</item>
+        <item>Auth, Play, Analytics, Awareness, Geofence, Cloud-messaging, Firebase</item>
+        <item>w/o wrapper and using activeandroid</item>
+        <item><bold>Rx</bold>, Dagger2, EventBus (greenrobot), butterknife, leakcanary</item>
+        <item>VK, FB, Twitter</item>
+    </array>
+    <array name="skills_frameworks_labels">
+        <item>Android platform</item>
+        <item>Android testing</item>
+        <item>Media</item>
+        <item>Networking</item>
+        <item>Maps</item>
+        <item>Google API</item>
+        <item>SQLite</item>
+        <item>Handy libs</item>
+        <item>Social API</item>
+    </array>
+
+    <array name="skills_programming_labels">
+        <item>Java</item>
+        <item>Automation</item>
+        <item>Linux</item>
+        <item>CI</item>
+        <item >Other languages</item>
+    </array>
+    <array name="skills_programming_values">
+        <item><bold>multi-threading, collections, client-server, OOP, MVC, REST API: </bold>json, xml, parse html</item>
+        <item><bold>bash</bold>, python, Selenium, apache bench, jmeter</item>
+        <item>Experienced user. Write automation scripts in bash, expect(scripting language)</item>
+        <item><bold>Gradle, Jenkins, Git, Gerrit</bold></item>
+        <item >aosp debugging, cmake (building android platform), writing c++ tests</item>
+    </array>
+
+
+    <string-array name="skills_english_labels">English level</string-array>
+    <string-array name="skills_english_values">Upper intermediate. Can read, write, speak freely
+    </string-array>
+</resources>

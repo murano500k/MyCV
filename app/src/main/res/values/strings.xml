@@ -4,8 +4,8 @@
     <string name="navigation_drawer_open">Open drawer</string>
     <string name="navigation_drawer_close">Close drawer</string>
 
-    <string name="action_common">Common</string>
-    <string name="projects">Projects</string>
+    <string name="action_common">About me</string>
+    <string name="projects">My projects</string>
     <string name="description_title">Description</string>
     <string name="duties">Duties</string>
     <string name="stack">Technologies used</string>
@@ -15,13 +15,9 @@
     <string name="title_cv">CV</string>
     <string name="title_contacts">Contacts</string>
     <string name="cant_help_it">Can\'t open the app</string>
-    <string name="source_code">Source code</string>
     <string name="project">Project</string>
     <string name="code">source code</string>
-    <string name="mail_subject">Android/iOS Developer</string>
     <string name="mail_chooser">Send email...</string>
-    <string name="action_all">All</string>
-    <string name="action_android">Android only</string>
-    <string name="action_ios">iOS only</string>
     <string name="empty">There is nothing here yet</string>
+    <string name="desc_gl_training">GlobalLogic internal training for android developers. Covered topics include AOSP, Linux kernel, Android platform architecture</string>
 </resources>

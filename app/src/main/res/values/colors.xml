@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#607D8B</color>
-    <color name="colorPrimaryDark">#455A64</color>
-    <color name="colorAccent">#448AFF</color>
-    <color name="lightPrimary">#CFD8DC</color>
+    <color name="colorPrimary">#00695c</color>
+    <color name="colorPrimaryDark">#004D40</color>
+    <color name="colorAccent">#ff9800</color>
+    <color name="lightPrimary">#64FFDA</color>
 
     <color name="textPrimary">#212121</color>
     <color name="textSecondary">#757575</color>
-    <color name="dividerColor">#BDBDBD</color>
+    <color name="textL1">#BDBDBD</color>
+    <color name="textL2">#9E9E9E</color>
+    <color name="textL3">#424242</color>
+    <color name="bgWork">#ECEFF1</color>
+    <color name="bgSkills">#fafafa</color>
+    <color name="bgWorkSection">#CFD8DC</color>
+    <color name="bgSkillsSection">#EEEEEE</color>
+    <color name="bgCommon">#424242</color>
+    <color name="textColorHeader">#FAFAFA</color>
+    <color name="textColorPeriod">#616161</color>
+    <color name="textColorDescription">#424242</color>
+
 </resources>

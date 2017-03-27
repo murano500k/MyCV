@@ -40,15 +40,9 @@ class ProjectsAdapter extends ArrayAdapter<Project, ProjectsAdapter.ProjectViewH
         holder.binding.infoText.setText(project.name);
         Picasso.with(context)
                 .load(project.webPic)
-                .placeholder(R.drawable.placeholder)
-                .error(R.drawable.placeholder)
+                .placeholder(R.drawable.ic_android)
+                .error(R.drawable.ic_android)
                 .into(holder.binding.projImage);
-
-        if (project.platform.equals(Project.PLATFORM_ANDROID)) {
-            holder.binding.platform.setImageResource(R.drawable.ic_android);
-        } else {
-            holder.binding.platform.setImageResource(R.drawable.ic_apple);
-        }
     }
 
 

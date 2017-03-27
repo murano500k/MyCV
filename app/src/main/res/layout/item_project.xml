@@ -3,51 +3,47 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        card_view:cardCornerRadius="1dp"
-        card_view:cardElevation="4dp"
-        card_view:cardUseCompatPadding="true">
+                                        android:id="@+id/card_view"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="@dimen/content_text_margin"
+                                        android:layout_marginEnd="@dimen/card_margin"
+                                        android:layout_marginStart="@dimen/card_margin"
+                                        android:layout_marginTop="@dimen/content_text_margin"
+                                        card_view:cardCornerRadius="@dimen/cardview_default_radius"
+                                        card_view:cardElevation="@dimen/cardview_default_elevation">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/proj_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_margin="8dp"
-                android:minHeight="160dp"
-                tools:src="@drawable/placeholder" />
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="?attr/colorControlHighlight"
+                android:padding="@dimen/content_text_margin"
+                tools:src="@drawable/placeholder"/>
 
             <ImageView
                 android:id="@+id/platform"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:paddingRight="16dp"
-                android:paddingTop="16dp"
-                card_view:srcCompat="@drawable/ic_android" />
+                android:visibility="gone"
+                card_view:srcCompat="@drawable/ic_android"/>
 
             <TextView
                 android:id="@+id/info_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_below="@+id/proj_image"
-                android:layout_centerHorizontal="true"
-                android:gravity="bottom|center_horizontal"
-                android:paddingBottom="8dp"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/textPrimary"
-                tools:text="Very Good Transfer" />
-        </RelativeLayout>
+                tools:text="Very Good Transfer"/>
+        </LinearLayout>
     </android.support.v7.widget.CardView>
 
 

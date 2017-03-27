@@ -31,7 +31,7 @@
 
                 <item
                     android:id="@+id/action_github"
-                    android:icon="@drawable/ic_link_black_24px"
+                    android:icon="@drawable/ic_github"
                     android:title="@string/action_github" />
 
             </group>

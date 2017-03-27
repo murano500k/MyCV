@@ -1,0 +1,97 @@
+<resources>
+    <string name="app_name">MyCV</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_education">Education</string>
+    <string name="title_contact">Contact</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
+    <string name="large_text">
+        Lorem ipsum..
+    </string>
+    <string name="action_settings">Settings</string>
+    <string name="position">Android Developer</string>
+    <string name="my_location">Kyiv, Ukraine</string>
+
+
+    <string name="my_name">Artem Radchenko</string>
+    <string name="my_email">murano500k@gmail.com</string>
+    <string name="my_phone">0661991070</string>
+    <string name="my_github">https://github.com/murano500k</string>
+    <string name="url_my_cv">https://docs.google.com/document/d/1YbIsVqYzZY3SrqDTKemSZuzEgxMwWvGcLDYzx1eU8uk/edit?usp=sharing</string>
+
+
+    <string name="url_app_market_base">https://play.google.com/store/apps/details?id=</string>
+    <string name="package_clock">com.stc.fullscreenclock</string>
+    <string name="package_life">com.stc.life</string>
+    <string name="url_drive_download">https://docs.google.com/document/d/1YbIsVqYzZY3SrqDTKemSZuzEgxMwWvGcLDYzx1eU8uk/export?format=pdf</string>
+    <string name="title_activity_project_list">ProjectListActivity</string>
+
+
+    <string name="package_name_radio">com.stc.radio.player</string>
+    <string name="github_name_radio">Internet-Radio-Player-Android</string>
+    <string name="description_radio">My main pet project: Online radio for Android. Streams audio from web using ExoPlayer engine (for smooth loading). Includes hd radio streams with electronic, pop, rock, jazz, classical music. Compitable with Android MediaSession API. App loads stations dynamically from web api. Auto resume playback when connection becomes available.  </string>
+    <string name="icon_url_radio">https://lh3.googleusercontent.com/HX0hubCSIjUXHseJrVu1bs5aFZN-edzKQnDvaVmd5GasmE9U5rAlicwojOvsE_g7MjI=w300-rw</string>
+
+
+    <string name="package_name_life">com.stc.radio.player</string>
+    <string name="icon_url_life">https://lh3.googleusercontent.com/HX0hubCSIjUXHseJrVu1bs5aFZN-edzKQnDvaVmd5GasmE9U5rAlicwojOvsE_g7MjI=w300-rw</string>
+    <string name="radio_title">Online radio</string>
+    <string name="github_profile">Github profile</string>
+    <string name="btn_projects">Pet projects</string>
+    <string name="btn_location">Kiev, Ukraine</string>
+    <string name="btn_pdf">Download PDF</string>
+
+
+    <string name="education_university_name">NTUU KPI</string>
+    <string name="education_faculty_name">Educational Scientific Institute of Telecommunication Systems</string>
+    <string name="education_dates">SEPTEMBER 2010 - FEBRUARY 2016</string>
+    <string name="education_degree">Specialist, full-time</string>
+
+
+    <string name="work_company_name">GlobalLogic</string>
+    <string name="work_position1">Junior QA</string>
+    <string name="work_position2">Android Automaiton</string>
+    <string name="work_date1">MARCH 2015 - FEBRUARY 2016</string>
+    <string name="work_date2">MARCH 2016 - PRESENT</string>
+    <string name="work_project1">Cross-platform VPN service</string>
+    <string name="work_project2">Embedded, automotive, porting android M, N, Ncar, O</string>
+    <string name="work_tasks1">Vpn client test automation, development and bug fixing, auto-testing compatibility, ui, REST API, auto-reconnect. vpn server performance test development, mongodb scripts, administration, monitoring</string>
+    <string name="work_tasks2">Android automated test development: media, connectivity, graphics, filesystem, memory, system performance. Git, gerrit, jenkins integration, platform building</string>
+    <string name="work_tools2">adb shell, bash scripts, junit, instrumentation, uiautomator, Espresso, cts, vts, busybox, ltp</string>
+    <string name="work_tools1">https://play.google.com/store/apps/details?id=com.privatewifi.pwf.hybrid</string>
+
+
+    <string name="archivements_gl_training_title">Android system development</string>
+    <string name="archivements_gl_training_desc">internal training in GlobalLogic</string>
+    <string name="archivements_gcert">Associate Android developer certificate</string>
+
+
+    <string name="skills_title_base">Skills</string>
+    <string name="title_activity_education">Education and Archivements</string>
+    <string name="title_activity_work">WorkActivity</string>
+    <string name="btn_work">Work expierience</string>
+    <string name="skill_label_frameworks">Frameworks</string>
+    <string name="skill_label_general">General</string>
+    <string name="title_item_list">Items</string>
+    <string name="title_item_detail">Item Detail</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="menu_label_skills">Skills</string>
+    <string name="menu_label_education">Education</string>
+    <string name="menu_label_work">Work experience</string>
+    <string name="menu_label_arch">Certificates</string>
+    <string name="menu_label_projects">Pet projects</string>
+    <string name="menu_label_contacts">Contacts</string>
+    <string name="title_base">Android developer profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_nickname">murano500k</string>
+    <string name="my_position">Android applications developer</string>
+    <string name="skill_label_english">English</string>
+
+
+</resources>
