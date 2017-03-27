@@ -1,8 +1,10 @@
 package com.stc.cv;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -32,9 +34,10 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private static final String TAG = "MainActivity";
-	private DrawerLayout drawerLayout;
+	private DrawerLayout mDrawerLayout;
 	private NavigationView navView;
 	private Contacts contacts;
 	private FirebaseAnalytics analytics;
@@ -42,8 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	private Subscription subscription;
 	private Toolbar toolbar;
 	private CollapsingToolbarLayout collapsingToolbarLayout;
-
+    ActionBarDrawerToggle mDrawerToggle;
 	//private ProgressBar progress;
+	private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
+	private boolean mUserLearnedDrawer;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,13 +72,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		});
 		//progress=(ProgressBar)findViewById(R.id.progress);
 		navView=(NavigationView) findViewById(R.id.nav_view) ;
-		drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+		mDrawerLayout =(DrawerLayout)findViewById(R.id.drawer_layout);
 
-
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-				this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawerLayout.setDrawerListener(toggle);
-		toggle.syncState();
+        mDrawerToggle = new ActionBarDrawerToggle(
+				this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
 
 		navView.setNavigationItemSelectedListener(this);
 		if (savedInstanceState == null) {
@@ -87,9 +91,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				showCommon();
 			}
 		}
-		//getSupportActionBar().setTitle(selectedSection);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+        if (!mUserLearnedDrawer) {
+            mDrawerLayout.openDrawer(navView);
 
-	}
+            mUserLearnedDrawer = true;
+            sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
+        }
+
+    }
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
@@ -107,8 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 	@Override
 	public void onBackPressed() {
-		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-			drawerLayout.closeDrawer(GravityCompat.START);
+		if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+			mDrawerLayout.closeDrawer(GravityCompat.START);
 		} else {
 			super.onBackPressed();
 		}
@@ -125,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 					showProjects();
 					analytics.logEvent("drawer_projects_selected", null);
 				}
-				drawerLayout.closeDrawer(GravityCompat.START);
+				mDrawerLayout.closeDrawer(GravityCompat.START);
 				break;
 
 			case R.id.action_common:
@@ -133,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 					showCommon();
 					analytics.logEvent("drawer_common_selected", null);
 				}
-				drawerLayout.closeDrawer(GravityCompat.START);
+				mDrawerLayout.closeDrawer(GravityCompat.START);
 				break;
 
 			case R.id.action_email:
@@ -185,14 +197,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				.observeValueEvent(FirebaseDatabase.getInstance().getReference(), ContactsResponse.class)
 				.map(contactsResponse -> {
 
-                    /*Map<String, String> strings = contactsResponse.resources.get(
-                            LocaleService.getInstance().getLocale(MainActivity.this));
-
-                    Contacts contacts = contactsResponse.contacts ;
-                    contacts.cv = strings.get(contacts.cvKey);
-                    contacts.name = strings.get(contacts.nameKey);
-                    contacts.profession = strings.get(contacts.professionKey);
-*/
 					return contactsResponse.contacts ;
 				})
 				.subscribeOn(Schedulers.io())

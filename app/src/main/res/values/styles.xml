@@ -8,11 +8,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="TextAppearance.CardHeader" parent="TextAppearance.AppCompat.SearchResult.Title">
+    <style name="TextAppearance.ParentCardHeader" parent="TextAppearance.AppCompat.SearchResult.Title">
         <item name="android:padding">@dimen/activity_vertical_margin</item>
         <item name="android:background">@color/colorAccent</item>
-        <item name="android:textColor">@color/textColorHeader</item>
+        <item name="android:textColor">@color/textSecondary</item>
     </style>
+    <style name="TextAppearance.CardHeader" parent="TextAppearance.AppCompat.Headline">
+        <item name="android:padding">@dimen/activity_vertical_margin</item>
+
+        <item name="android:textColor">@color/cardview_light_background</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+
+    </style>
+
 
     <style name="TextAppearance.Period" parent="TextAppearance.AppCompat.Medium">
         <item name="android:layout_margin">@dimen/content_text_margin</item>
@@ -20,20 +28,54 @@
         <item name="android:textStyle">italic</item>
     </style>
 
-    <style name="TextAppearance.Header" parent="TextAppearance.AppCompat.Large">
+    <style name="TextAppearance.Header" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textColor">@color/textPrimary</item>
+        <item name="android:layout_marginTop">@dimen/content_text_margin</item>
+        <item name="android:layout_marginLeft">@dimen/card_margin</item>
+        <item name="android:layout_marginRight">@dimen/card_margin</item>
     </style>
-    <style name="TextAppearance.Content" parent="TextAppearance.AppCompat.Small">
-        <item name="android:layout_margin">@dimen/content_text_margin</item>
+    <style name="TextAppearance.Label" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textColor">@color/textSecondary</item>
+        <item name="android:textStyle">italic</item>
+        <item name="android:layout_marginTop">@dimen/content_text_margin</item>
+        <item name="android:layout_marginLeft">@dimen/card_margin</item>
+        <item name="android:layout_marginRight">@dimen/card_margin</item>
+    </style>
+
+    <style name="TextAppearance.Content" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">@color/textColorDescription</item>
+        <item name="android:layout_marginBottom">@dimen/content_text_margin</item>
+        <item name="android:layout_marginTop">@dimen/content_text_margin</item>
+        <item name="android:layout_marginLeft">@dimen/card_margin</item>
+        <item name="android:layout_marginRight">@dimen/card_margin</item>
+    </style>
+
+    <style name="CardStyle" parent="CardView">
+        <item name="cardElevation">@dimen/child_elevation</item>
+        <item name="cardBackgroundColor">@color/bgWork</item>
+        <item name="android:layout_marginBottom">@dimen/content_text_margin</item>
+        <item name="android:layout_marginTop">@dimen/content_text_margin</item>
+        <item name="android:layout_marginLeft">@dimen/card_margin</item>
+        <item name="android:layout_marginRight">@dimen/card_margin</item>
         <item name="android:textColor">@color/textColorDescription</item>
     </style>
+    <style name="CardStyle.Parent" parent="CardStyle">
+        <item name="cardCornerRadius">0dp</item>
+        <item name="cardBackgroundColor">@color/cardview_light_background</item>
+        <item name="cardElevation">@dimen/elevation</item>
+
+    </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <dimen name="child_elevation">2dp</dimen>
+
+    <dimen name="elevation">8dp</dimen>
 </resources>

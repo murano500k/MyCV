@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:layout_marginEnd="@dimen/activity_horizontal_margin"
-    android:orientation="vertical">
 
     <android.support.v4.widget.NestedScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         >
 
         <LinearLayout
@@ -21,13 +16,9 @@
 
 
             <android.support.v7.widget.CardView
+                style="@style/CardStyle.Parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/bgSkillsSection"
-                app:cardElevation="@dimen/cardview_default_elevation"
-                android:layout_marginTop="@dimen/content_text_margin"
-                android:layout_marginBottom="@dimen/content_text_margin"
-                >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -38,7 +29,7 @@
                         style="@style/TextAppearance.CardHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Technologies"/>
+                        android:text="@string/label_skills_tools"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_skills"
@@ -50,13 +41,9 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                style="@style/CardStyle.Parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/bgSkills"
-
-                android:layout_marginTop="@dimen/content_text_margin"
-                android:layout_marginBottom="@dimen/content_text_margin"
-                app:cardElevation="@dimen/cardview_default_elevation">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -73,32 +60,23 @@
 
                     <TextView
                         style="@style/TextAppearance.Header"
-
                         android:id="@+id/text_university"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginEnd="@dimen/card_margin"
-                        android:layout_marginStart="@dimen/card_margin"
                         android:text="Very Good Transfer"
                         />
 
                     <TextView
                         android:id="@+id/text_period"
-                        style="@style/TextAppearance.Period"
+                        style="@style/TextAppearance.Content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
-                        android:layout_marginEnd="@dimen/card_margin"
-                        android:layout_marginStart="@dimen/card_margin"
-                        android:text="Very Good Transfer"/>
+                        android:text="Very Good Transfer" />
 
                     <TextView
                         android:id="@+id/text_faculty"
                         style="@style/TextAppearance.Content"
                         android:layout_width="match_parent"
-
-                        android:layout_marginEnd="@dimen/card_margin"
-                        android:layout_marginStart="@dimen/card_margin"
                         android:layout_height="wrap_content"
                         android:text="Very Good Transfer"/>
 
@@ -107,11 +85,7 @@
                         style="@style/TextAppearance.Content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Very Good Transfer"
-
-                        android:layout_marginEnd="@dimen/card_margin"
-                        android:layout_marginStart="@dimen/card_margin"
-                        />
+                        android:text="Very Good Transfer" />
 
 
                 </LinearLayout>
@@ -119,27 +93,20 @@
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
+                style="@style/CardStyle.Parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:layout_marginTop="@dimen/content_text_margin"
-                android:layout_marginBottom="@dimen/content_text_margin"
-                app:cardBackgroundColor="@color/bgSkills"
-                app:cardElevation="@dimen/cardview_default_elevation"
-                >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
                     android:orientation="vertical">
 
                     <TextView
                         style="@style/TextAppearance.CardHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Certificates"
-                        />
+                        android:text="Certificates" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -153,13 +120,8 @@
                             android:layout_marginEnd="@dimen/card_margin"
                             android:layout_marginStart="@dimen/card_margin"
                             android:gravity="center_vertical"
-                            android:text="Android S Workshops"/>
+                            android:text="Android S Workshops" />
 
-                        <ImageView
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_margin="8dp"
-                            android:src="@drawable/ic_gl"/>
                     </LinearLayout>
 
                     <TextView
@@ -167,8 +129,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:text="@string/desc_gl_training"
-                        />
+                        android:text="@string/desc_gl_training" />
 
                 </LinearLayout>
 
@@ -176,15 +137,9 @@
 
 
             <android.support.v7.widget.CardView
+                style="@style/CardStyle.Parent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                app:cardBackgroundColor="@color/bgWorkSection"
-                app:cardElevation="@dimen/cardview_default_elevation"
-
-                android:layout_marginTop="@dimen/content_text_margin"
-                android:layout_marginBottom="@dimen/content_text_margin"
-                >
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -195,23 +150,18 @@
                         style="@style/TextAppearance.CardHeader"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Work Experience"
-                        />
+                        android:text="Work Experience" />
 
                     <TextView
+                        style="@style/TextAppearance.Content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="Overall 2+ years of android applications development experience"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Small"/>
+                        android:text="Overall 2+ years of android applications development experience" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_work"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
-
-                        />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </android.support.v7.widget.CardView>
@@ -219,4 +169,3 @@
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
-</FrameLayout>
