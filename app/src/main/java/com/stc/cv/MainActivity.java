@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	private Toolbar toolbar;
 	private CollapsingToolbarLayout collapsingToolbarLayout;
     ActionBarDrawerToggle mDrawerToggle;
+    AppBarLayout appBarLayout;
 	//private ProgressBar progress;
 	private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 	private boolean mUserLearnedDrawer;
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		//progress=(ProgressBar)findViewById(R.id.progress);
 		navView=(NavigationView) findViewById(R.id.nav_view) ;
 		mDrawerLayout =(DrawerLayout)findViewById(R.id.drawer_layout);
-
+        appBarLayout=(AppBarLayout)findViewById(R.id.app_bar);
         mDrawerToggle = new ActionBarDrawerToggle(
 				this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -96,6 +98,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (!mUserLearnedDrawer) {
             mDrawerLayout.openDrawer(navView);
 
+
+
+
             mUserLearnedDrawer = true;
             sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
         }
@@ -107,16 +112,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		super.onSaveInstanceState(outState);
 		outState.putInt("section", selectedSection);
 	}
-	private void showProjects() {
+    private void showProjects() {
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.content_main, ProjectsFragment.instance(), ProjectsFragment.TAG)
 				.commit();
 		toolbar.setTitle(R.string.projects);
 		collapsingToolbarLayout.setTitle(getString(R.string.projects));
-		selectedSection = R.id.action_projects;
+		//collapsingToolbarLayout.setStatusBarScrimResource(R.drawable.cvbanner);
+       // appBarLayout.setBackgroundResource(R.drawable.abg_about);
+        selectedSection = R.id.action_projects;
 	}
 
+    private void showCommon() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_main, CommonFragment.instance(), CommonFragment.TAG)
+                .commit();
+        toolbar.setTitle(R.string.action_common);
+        collapsingToolbarLayout.setTitle(getString(R.string.action_common));
+		//collapsingToolbarLayout.setStatusBarScrimResource(R.drawable.abg_about);
+       // appBarLayout.setBackgroundResource(R.drawable.abg_about);
+
+
+
+
+        selectedSection = R.id.action_common;
+    }
 	@Override
 	public void onBackPressed() {
 		if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -179,15 +201,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		return true;
 	}
 
-	private void showCommon() {
-		getSupportFragmentManager()
-				.beginTransaction()
-				.replace(R.id.content_main, CommonFragment.instance(), CommonFragment.TAG)
-				.commit();
-		toolbar.setTitle(R.string.action_common);
-		collapsingToolbarLayout.setTitle(getString(R.string.action_common));
-		selectedSection = R.id.action_common;
-	}
 
 	@Override
 	protected void onStart() {
