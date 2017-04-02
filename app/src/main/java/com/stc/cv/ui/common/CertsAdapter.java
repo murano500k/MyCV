@@ -92,6 +92,7 @@ public class CertsAdapter extends RecyclerView.Adapter{
 			this.textDescription=(TextView)itemView.findViewById(R.id.text_description);
 			this.textIssuedBy=(TextView)itemView.findViewById(R.id.text_issued_by);
 			this.imageView=(ImageView)itemView.findViewById(R.id.image_cert);
+
 		}
 	}
 }
