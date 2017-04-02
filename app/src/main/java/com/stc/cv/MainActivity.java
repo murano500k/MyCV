@@ -1,5 +1,6 @@
 package com.stc.cv;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	//private ProgressBar progress;
 	private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 	private boolean mUserLearnedDrawer;
-
+	FloatingActionButton fab;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,17 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		toolbar = (Toolbar) findViewById(R.id.toolbar2);
 		setSupportActionBar(toolbar);
 		collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.download);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (contacts != null) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.cv));
-					startActivity(intent);
-					analytics.logEvent("download_cv_pressed", null);
-				}
-			}
-		});
+		fab = (FloatingActionButton) findViewById(R.id.download);
+
 		//progress=(ProgressBar)findViewById(R.id.progress);
 		navView=(NavigationView) findViewById(R.id.nav_view) ;
 		mDrawerLayout =(DrawerLayout)findViewById(R.id.drawer_layout);
@@ -117,11 +110,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				.beginTransaction()
 				.replace(R.id.content_main, ProjectsFragment.instance(), ProjectsFragment.TAG)
 				.commit();
-		toolbar.setTitle(R.string.projects);
+		appBarLayout.setExpanded(true, true);
 		collapsingToolbarLayout.setTitle(getString(R.string.projects));
-		//collapsingToolbarLayout.setStatusBarScrimResource(R.drawable.cvbanner);
-       // appBarLayout.setBackgroundResource(R.drawable.abg_about);
+		fab.setImageResource(R.drawable.ic_github);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				analytics.logEvent("github_profile_clicked", bundle);
+
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.gitHub));
+				try {
+					startActivity(intent);
+
+				} catch (ActivityNotFoundException exception) {
+
+					Snackbar snackbar = Snackbar
+							.make(v, R.string.cant_help_it, Snackbar.LENGTH_LONG);
+
+					snackbar.show();
+				}
+			}});
         selectedSection = R.id.action_projects;
+
 	}
 
     private void showCommon() {
@@ -129,12 +140,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .replace(R.id.content_main, CommonFragment.instance(), CommonFragment.TAG)
                 .commit();
-        toolbar.setTitle(R.string.action_common);
         collapsingToolbarLayout.setTitle(getString(R.string.action_common));
-		//collapsingToolbarLayout.setStatusBarScrimResource(R.drawable.abg_about);
-       // appBarLayout.setBackgroundResource(R.drawable.abg_about);
-
-
+		appBarLayout.setExpanded(true, true);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (contacts != null) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.cv));
+					startActivity(intent);
+					analytics.logEvent("download_cv_pressed", null);
+				}
+			}
+		});
 
 
         selectedSection = R.id.action_common;
@@ -229,6 +246,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 							.placeholder(R.drawable.ic_android)
 							.error(R.drawable.ic_android)
 							.into(userPic);
+
+					ImageView certPic = (ImageView) navView.findViewById(R.id.cert_img);
+					Picasso.with(MainActivity.this)
+							.load(contacts.certImgUrl)
+							.placeholder(R.drawable.ic_android)
+							.error(R.drawable.ic_android)
+							.into(certPic);
+					certPic.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.certUrl));
+
+							startActivity(intent);
+						}
+					});
 
 				}, t -> {
 					Log.e(TAG, "onStart: ",t);

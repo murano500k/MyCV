@@ -44,7 +44,7 @@ android {
     buildToolsVersion "25.0.1"
     defaultConfig {
         applicationId "com.stc.cv"
-        minSdkVersion 16
+        minSdkVersion 14
         targetSdkVersion 25
         versionCode getVersionCode()
         versionName getVersionName()
@@ -69,6 +69,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+}
+repositories {
+    jcenter()
+
 }
 
 dependencies {
