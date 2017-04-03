@@ -25,6 +25,12 @@ public class Contacts {
     @PropertyName("pic_url")
     public String userPic;
 
+    @PropertyName("cert_url")
+    public String certUrl;
+
+    @PropertyName("cert_img_url")
+    public String certImgUrl;
+
     @PropertyName("cv_url_key")
     public String cvKey;
 

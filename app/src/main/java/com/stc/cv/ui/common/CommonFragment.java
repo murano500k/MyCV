@@ -12,14 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.crash.FirebaseCrash;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kelvinapps.rxfirebase.RxFirebaseDatabase;
 import com.stc.cv.R;
+import com.stc.cv.model.Cert;
+import com.stc.cv.model.CertsResponce;
 import com.stc.cv.model.Education;
 import com.stc.cv.model.EducationResponce;
 import com.stc.cv.model.SkillsGroup;
 import com.stc.cv.model.SkillsResponce;
+import com.stc.cv.model.Training;
+import com.stc.cv.model.TrainingsResponce;
 import com.stc.cv.model.Work;
 import com.stc.cv.model.WorkResponce;
 
@@ -37,12 +42,16 @@ public class CommonFragment extends Fragment {
 	private Subscription subscriptionWork;
 	private SkillsAdapter skillsAdapter;
 	private WorkAdapter workAdapter;
-	private RecyclerView recyclerViewSkills, recyclerViewWork;
+	private CertsAdapter certsAdapter;
 
+	private RecyclerView recyclerViewSkills, recyclerViewWork, recyclerViewCerts, recyclerViewTrainings;
 	TextView textUniversity;
 	TextView textDegree;
 	TextView textPeriod;
 	TextView textFaculty;
+	private Subscription subscriptionCerts;
+	private TrainingsAdapter trainingsAdapter;
+	private Subscription subscriptionTrainings;
 
 
 	public static CommonFragment instance() {
@@ -65,7 +74,8 @@ public class CommonFragment extends Fragment {
         super.onCreate(savedInstanceState);
         skillsAdapter = new SkillsAdapter();
 	    workAdapter = new WorkAdapter();
-
+		certsAdapter = new CertsAdapter(FirebaseAnalytics.getInstance(getContext()));
+		trainingsAdapter = new TrainingsAdapter();
     }
 
     @Override
@@ -82,6 +92,8 @@ public class CommonFragment extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_common, container, false);
 	    recyclerViewSkills=(RecyclerView) view.findViewById(R.id.rv_skills);
 	    recyclerViewWork=(RecyclerView) view.findViewById(R.id.rv_work);
+		recyclerViewCerts=(RecyclerView)view.findViewById(R.id.rv_certs);
+		recyclerViewTrainings=(RecyclerView)view.findViewById(R.id.rv_training);
 	    textDegree = (TextView)view.findViewById(R.id.text_degree);
 	    textPeriod = (TextView)view.findViewById(R.id.text_period);
 	    textUniversity = (TextView)view.findViewById(R.id.text_university);
@@ -91,11 +103,17 @@ public class CommonFragment extends Fragment {
 
 	    recyclerViewSkills.setLayoutManager(new LinearLayoutManager(getContext()));
 	    recyclerViewWork.setLayoutManager(new LinearLayoutManager(getContext()));
+	    recyclerViewCerts.setLayoutManager(new LinearLayoutManager(getContext()));
+		recyclerViewTrainings.setLayoutManager(new LinearLayoutManager(getContext()));
+		recyclerViewCerts.setAdapter(certsAdapter);
 		recyclerViewWork.setAdapter(workAdapter);
 	    recyclerViewSkills.setAdapter(skillsAdapter);
+	    recyclerViewTrainings.setAdapter(trainingsAdapter);
 
 	    recyclerViewSkills.setNestedScrollingEnabled(false);
+	    recyclerViewCerts.setNestedScrollingEnabled(false);
 	    recyclerViewWork.setNestedScrollingEnabled(false);
+	    recyclerViewTrainings.setNestedScrollingEnabled(false);
 
         return view;
     }
@@ -103,6 +121,69 @@ public class CommonFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        subscriptionTrainings = RxFirebaseDatabase
+                .observeValueEvent(FirebaseDatabase.getInstance().getReference(), TrainingsResponce.class)
+                .flatMap(new Func1<TrainingsResponce, Observable<Training>>() {
+	                @Override
+	                public Observable<Training> call(TrainingsResponce trainingsResponce) {
+		                return Observable.from(trainingsResponce.trainings);
+	                }
+                })
+		        .subscribeOn(Schedulers.io())
+		        .observeOn(AndroidSchedulers.mainThread())
+		        .subscribe(new Observer<Training>() {
+
+			        @Override
+			        public void onCompleted() {
+				        trainingsAdapter.notifyDataSetChanged();
+
+			        }
+
+			        @Override
+			        public void onError(Throwable e) {
+				        trainingsAdapter.notifyDataSetChanged();
+				        Log.e(TAG, "onError: ", e);
+				        FirebaseCrash.report(e);
+			        }
+
+			        @Override
+			        public void onNext(Training training) {
+				        trainingsAdapter.addItem(training);
+			        }
+		        });
+
+ subscriptionCerts = RxFirebaseDatabase
+                .observeValueEvent(FirebaseDatabase.getInstance().getReference(), CertsResponce.class)
+                .flatMap(new Func1<CertsResponce, Observable<Cert>>() {
+	                @Override
+	                public Observable<Cert> call(CertsResponce certsResponce) {
+		                return Observable.from(certsResponce.certifications);
+	                }
+                })
+		        .subscribeOn(Schedulers.io())
+		        .observeOn(AndroidSchedulers.mainThread())
+		        .subscribe(new Observer<Cert>() {
+
+			        @Override
+			        public void onCompleted() {
+				        certsAdapter.notifyDataSetChanged();
+
+			        }
+
+			        @Override
+			        public void onError(Throwable e) {
+				        certsAdapter.notifyDataSetChanged();
+				        Log.e(TAG, "onError: ", e);
+				        FirebaseCrash.report(e);
+			        }
+
+			        @Override
+			        public void onNext(Cert cert) {
+				        certsAdapter.addItem(cert);
+			        }
+		        });
+
 
         subscriptionWork = RxFirebaseDatabase
                 .observeValueEvent(FirebaseDatabase.getInstance().getReference(), WorkResponce.class)
@@ -134,6 +215,8 @@ public class CommonFragment extends Fragment {
 				        workAdapter.addItem(work);
 			        }
 		        });
+
+
 	    subscriptionSkills = RxFirebaseDatabase
 			    .observeValueEvent(FirebaseDatabase.getInstance().getReference(), SkillsResponce.class)
 			    .flatMap(new Func1<SkillsResponce, Observable<SkillsGroup>>() {

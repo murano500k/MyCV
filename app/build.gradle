@@ -70,6 +70,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+repositories {
+    jcenter()
+
+}
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])

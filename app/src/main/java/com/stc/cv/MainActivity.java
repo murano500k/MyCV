@@ -1,12 +1,17 @@
 package com.stc.cv;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -32,9 +37,10 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 	private static final String TAG = "MainActivity";
-	private DrawerLayout drawerLayout;
+	private DrawerLayout mDrawerLayout;
 	private NavigationView navView;
 	private Contacts contacts;
 	private FirebaseAnalytics analytics;
@@ -42,9 +48,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 	private Subscription subscription;
 	private Toolbar toolbar;
 	private CollapsingToolbarLayout collapsingToolbarLayout;
-
+    ActionBarDrawerToggle mDrawerToggle;
+    AppBarLayout appBarLayout;
 	//private ProgressBar progress;
-
+	private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
+	private boolean mUserLearnedDrawer;
+	FloatingActionButton fab;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,26 +63,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		toolbar = (Toolbar) findViewById(R.id.toolbar2);
 		setSupportActionBar(toolbar);
 		collapsingToolbarLayout = (CollapsingToolbarLayout)findViewById(R.id.collapsing_toolbar);
-		FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.download);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (contacts != null) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.cv));
-					startActivity(intent);
-					analytics.logEvent("download_cv_pressed", null);
-				}
-			}
-		});
+		fab = (FloatingActionButton) findViewById(R.id.download);
+
 		//progress=(ProgressBar)findViewById(R.id.progress);
 		navView=(NavigationView) findViewById(R.id.nav_view) ;
-		drawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-
-
-		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-				this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-		drawerLayout.setDrawerListener(toggle);
-		toggle.syncState();
+		mDrawerLayout =(DrawerLayout)findViewById(R.id.drawer_layout);
+        appBarLayout=(AppBarLayout)findViewById(R.id.app_bar);
+        mDrawerToggle = new ActionBarDrawerToggle(
+				this, mDrawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
 
 		navView.setNavigationItemSelectedListener(this);
 		if (savedInstanceState == null) {
@@ -87,28 +86,80 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				showCommon();
 			}
 		}
-		//getSupportActionBar().setTitle(selectedSection);
+		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+		mUserLearnedDrawer = sp.getBoolean(PREF_USER_LEARNED_DRAWER, false);
+        if (!mUserLearnedDrawer) {
+            mDrawerLayout.openDrawer(navView);
 
-	}
+
+
+
+            mUserLearnedDrawer = true;
+            sp.edit().putBoolean(PREF_USER_LEARNED_DRAWER, true).apply();
+        }
+
+    }
+
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putInt("section", selectedSection);
 	}
-	private void showProjects() {
+    private void showProjects() {
 		getSupportFragmentManager()
 				.beginTransaction()
 				.replace(R.id.content_main, ProjectsFragment.instance(), ProjectsFragment.TAG)
 				.commit();
-		toolbar.setTitle(R.string.projects);
+		appBarLayout.setExpanded(true, true);
 		collapsingToolbarLayout.setTitle(getString(R.string.projects));
-		selectedSection = R.id.action_projects;
+		fab.setImageResource(R.drawable.ic_github);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Bundle bundle = new Bundle();
+				analytics.logEvent("github_profile_clicked", bundle);
+
+				Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.gitHub));
+				try {
+					startActivity(intent);
+
+				} catch (ActivityNotFoundException exception) {
+
+					Snackbar snackbar = Snackbar
+							.make(v, R.string.cant_help_it, Snackbar.LENGTH_LONG);
+
+					snackbar.show();
+				}
+			}});
+        selectedSection = R.id.action_projects;
+
 	}
 
+    private void showCommon() {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_main, CommonFragment.instance(), CommonFragment.TAG)
+                .commit();
+        collapsingToolbarLayout.setTitle(getString(R.string.action_common));
+		appBarLayout.setExpanded(true, true);
+		fab.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (contacts != null) {
+					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.cv));
+					startActivity(intent);
+					analytics.logEvent("download_cv_pressed", null);
+				}
+			}
+		});
+
+
+        selectedSection = R.id.action_common;
+    }
 	@Override
 	public void onBackPressed() {
-		if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-			drawerLayout.closeDrawer(GravityCompat.START);
+		if (mDrawerLayout.isDrawerOpen(GravityCompat.START)) {
+			mDrawerLayout.closeDrawer(GravityCompat.START);
 		} else {
 			super.onBackPressed();
 		}
@@ -125,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 					showProjects();
 					analytics.logEvent("drawer_projects_selected", null);
 				}
-				drawerLayout.closeDrawer(GravityCompat.START);
+				mDrawerLayout.closeDrawer(GravityCompat.START);
 				break;
 
 			case R.id.action_common:
@@ -133,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 					showCommon();
 					analytics.logEvent("drawer_common_selected", null);
 				}
-				drawerLayout.closeDrawer(GravityCompat.START);
+				mDrawerLayout.closeDrawer(GravityCompat.START);
 				break;
 
 			case R.id.action_email:
@@ -167,15 +218,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 		return true;
 	}
 
-	private void showCommon() {
-		getSupportFragmentManager()
-				.beginTransaction()
-				.replace(R.id.content_main, CommonFragment.instance(), CommonFragment.TAG)
-				.commit();
-		toolbar.setTitle(R.string.action_common);
-		collapsingToolbarLayout.setTitle(getString(R.string.action_common));
-		selectedSection = R.id.action_common;
-	}
 
 	@Override
 	protected void onStart() {
@@ -185,14 +227,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				.observeValueEvent(FirebaseDatabase.getInstance().getReference(), ContactsResponse.class)
 				.map(contactsResponse -> {
 
-                    /*Map<String, String> strings = contactsResponse.resources.get(
-                            LocaleService.getInstance().getLocale(MainActivity.this));
-
-                    Contacts contacts = contactsResponse.contacts ;
-                    contacts.cv = strings.get(contacts.cvKey);
-                    contacts.name = strings.get(contacts.nameKey);
-                    contacts.profession = strings.get(contacts.professionKey);
-*/
 					return contactsResponse.contacts ;
 				})
 				.subscribeOn(Schedulers.io())
@@ -212,6 +246,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 							.placeholder(R.drawable.ic_android)
 							.error(R.drawable.ic_android)
 							.into(userPic);
+
+					ImageView certPic = (ImageView) navView.findViewById(R.id.cert_img);
+					Picasso.with(MainActivity.this)
+							.load(contacts.certImgUrl)
+							.placeholder(R.drawable.ic_android)
+							.error(R.drawable.ic_android)
+							.into(certPic);
+					certPic.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.certUrl));
+
+							startActivity(intent);
+						}
+					});
 
 				}, t -> {
 					Log.e(TAG, "onStart: ",t);

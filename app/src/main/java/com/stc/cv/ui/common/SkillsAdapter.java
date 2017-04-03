@@ -39,10 +39,18 @@ public class SkillsAdapter extends RecyclerView.Adapter {
 	public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 		ViewHolder vh = (ViewHolder) holder;
 		SkillsGroup skillsGroup = list.get(position);
-		vh.textTitle.setText(skillsGroup.title);
-		vh.textLevel1.setText(skillsGroup.level1);
-		vh.textLevel2.setText(skillsGroup.level2);
-		vh.textLevel3.setText(skillsGroup.level3);
+		if (skillsGroup.title != null) {
+			vh.textTitle.setText(skillsGroup.title);
+		}
+		if (skillsGroup.level1 != null && skillsGroup.level1.length()>0) {
+			vh.textLevel1.setText(skillsGroup.level1);
+		}
+		if (skillsGroup.level2 != null&& skillsGroup.level2.length()>0) {
+			vh.textLevel2.setText(skillsGroup.level2);
+		}
+		if (skillsGroup.level3 != null&& skillsGroup.level3.length()>0) {
+			vh.textLevel3.setText(skillsGroup.level3);
+		}
 	}
 
 	@Override
