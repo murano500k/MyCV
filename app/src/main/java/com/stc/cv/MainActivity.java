@@ -110,9 +110,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 				.beginTransaction()
 				.replace(R.id.content_main, ProjectsFragment.instance(), ProjectsFragment.TAG)
 				.commit();
+
 		appBarLayout.setExpanded(true, true);
 		collapsingToolbarLayout.setTitle(getString(R.string.projects));
 		fab.setImageResource(R.drawable.ic_github);
+
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -140,19 +142,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .beginTransaction()
                 .replace(R.id.content_main, CommonFragment.instance(), CommonFragment.TAG)
                 .commit();
-        collapsingToolbarLayout.setTitle(getString(R.string.action_common));
-		appBarLayout.setExpanded(true, true);
-		fab.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				if (contacts != null) {
-					Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.cv));
-					startActivity(intent);
-					analytics.logEvent("download_cv_pressed", null);
-				}
-			}
-		});
 
+        appBarLayout.setExpanded(true, true);
+        collapsingToolbarLayout.setTitle(getString(R.string.action_common));
+        fab.setImageResource(R.drawable.ic_pdf_file_format_symbol);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View view) {
+            if (contacts != null) {
+              Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(contacts.cv));
+              startActivity(intent);
+              analytics.logEvent("download_cv_pressed", null);
+            }
+          }
+        });
 
         selectedSection = R.id.action_common;
     }

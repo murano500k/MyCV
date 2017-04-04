@@ -72,7 +72,9 @@ android {
 }
 repositories {
     jcenter()
-
+    maven {
+        url 'http://clojars.org/repo'
+    }
 }
 
 dependencies {
